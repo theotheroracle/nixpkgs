@@ -16,7 +16,7 @@ stdenv.mkDerivation rec {
   };
 
   installPhase = ''
-    install -Dpm644 $src/Client/Platform/Linux/sysdvr.rules $out/lib/udev/rules.d/99-sysdvr.rules
+    install -Dpm644 $src/Client/Platform/Linux/sysdvr.rules $out/lib/udev/rules.d/50-sysdvr.rules
   '';
 
   meta = with lib; {
