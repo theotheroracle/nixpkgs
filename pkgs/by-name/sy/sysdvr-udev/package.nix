@@ -1,10 +1,10 @@
 {
   lib,
   stdenv,
-  fetchFromGithub,
+  fetchFromGitHub,
 }:
 
-stdenv.mkDerivation {
+stdenv.mkDerivation rec {
   pname = "sysdvr-udev";
   version = "6.2";
 
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
     owner = "exelix11";
     repo = "SysDVR";
     tag = "v${version}";
-    hash = "";
+    hash = "sha256-3t87KWltTdK/4Cd68lwjxOFaqylaG6ZCwHQ54MLzBGc=";
   };
 
   installPhase = ''
