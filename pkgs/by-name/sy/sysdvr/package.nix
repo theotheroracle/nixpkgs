@@ -1,11 +1,12 @@
 {
   lib,
-  stdenv,
+  dotnetCorePackages,
   fetchFromGitHub,
+  buildDotnetModule,
 }:
 
-stdenv.mkDerivation rec {
-  pname = "sysdvr-udev";
+buildDotnetModule rec {
+  pname = "sysdvr";
   version = "6.2";
 
   src = fetchFromGitHub {
@@ -15,14 +16,15 @@ stdenv.mkDerivation rec {
     hash = "sha256-3t87KWltTdK/4Cd68lwjxOFaqylaG6ZCwHQ54MLzBGc=";
   };
 
-  installPhase = ''
-    install -Dpm644 $src/Client/Platform/Linux/sysdvr.rules $out/lib/udev/rules.d/50-sysdvr.rules
-  '';
+  projectFile = "Client/Client.csproj";
+
+  dotnet-sdk = dotnetCorePackages.dotnet_9.sdk;
+  dotnet-runtime = dotnetCorePackages.runtime_9_0-bin;
+  nugetDeps = ./deps.json;
 
   meta = with lib; {
     homepage = "https://github.com/exelix11/SysDVR/";
-    description = "udev rules that give NixOS permission to communicate with sysdvr on switch";
-    platforms = platforms.linux;
+    description = "sysdvr screen capture client for switch";
     license = licenses.gpl2Only;
     maintainers = with maintainers; [
       theotheroracle
